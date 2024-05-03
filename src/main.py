@@ -1,9 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, validator
 import pandas as pd
-import pickle, uvicorn, os
+import pickle, uvicorn, os, logging
 
 app = FastAPI()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 # Define filepath for ml_components.pkl
 ML_COMPONENTS_FILEPATH = os.path.join("assets", "ml", "ml_components.pkl")
@@ -84,18 +87,25 @@ async def predict_price(device_id: int, specs: DeviceSpecs):
         dict: A dictionary containing the input data and predicted price.
     """
     try:
+        logging.info(f"Input request received...")
+
         # Preprocess the data
         data = pd.DataFrame([{"device_id": device_id, **specs.dict()}])
+        logging.info(f"Input as a dataframe\n{data.to_markdown()}\n")
 
         # Predict price
         data["predicted_price"] = pipeline.predict(data)
 
-        print(f"\n{data.to_markdown()}\n")
+        logging.info(
+            f"Predictions made\n{data[['device_id', 'predicted_price']].to_markdown()}\n"
+        )
 
         # Return input data and predicted price
         return data.to_dict("records")
     except Exception as e:
-        print(f"{e}")
+        logging.error(
+            f"An error occurred while processing prediction for device ID {device_id}: {str(e)}"
+        )
         raise HTTPException(status_code=500, detail=str(e))
 
 
