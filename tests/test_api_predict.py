@@ -26,7 +26,7 @@ device_specs = {
     "talk_time": 10.0,
     "three_g": 1,
     "touch_screen": 1,
-    "wifi": 1,
+    "wifi": 1
 }
 
 
