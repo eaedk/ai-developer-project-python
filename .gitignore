@@ -1,3 +1,5 @@
 venv/
 **checkpoint*
 .DS_Store
+command.txt
+notebooks/test.ipynb
