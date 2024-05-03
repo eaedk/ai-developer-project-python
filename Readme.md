@@ -1,6 +1,6 @@
 # Devices Price Prediction API
 
-This API predicts the price range of a mobile device based on its specifications.
+This API predicts the price range of a mobile device based on its specifications. [Go to the deployed API](https://huggingface.co/spaces/eaedk/DevicesPricePredictionAPI)
 
 This README section provides an overview of the repository structure, details about the machine learning part, setup instructions, and information on interacting with the API and running tests.
 
